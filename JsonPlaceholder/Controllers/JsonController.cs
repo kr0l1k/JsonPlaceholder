@@ -35,7 +35,7 @@ namespace JsonPlaceholder.Controllers
         public async Task<ActionResult<List<User>>> GetUser()
         {
             var users = _requester.GetUser();
-            var preparedUsers = Crypt.DecryptUsers(ref users);
+            var preparedUsers = Crypt.EncryptUsers(ref users);
             return preparedUsers;
         }
 
@@ -45,8 +45,7 @@ namespace JsonPlaceholder.Controllers
             var user = _requester.GetUser(id);
             if (user != null)
             {
-                user.Email = Crypt.EncryptString(user.Email, user.Name + user.Phone.GetHashCode());
-                return user;
+                return Crypt.EncryptUser(ref user);
             }
             else
             {

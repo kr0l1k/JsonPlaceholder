@@ -39,7 +39,7 @@ namespace JsonPlaceholder.Controllers
             var users = _requester.GetUser();
             if (users.Count != 0)
             {
-                var preparedUsers = Crypt.DecryptUsers(ref users);
+                var preparedUsers = Crypt.EncryptUsers(ref users);
                 var res = SerializeObject(preparedUsers);
                 return res;
             }
@@ -56,8 +56,8 @@ namespace JsonPlaceholder.Controllers
             var user = _requester.GetUser(id);
             if(user != null)
             {
-                user.Email = Crypt.EncryptString(user.Email, user.Name + user.Phone.GetHashCode());
-                var res = SerializeObject(user);
+                var cryptedUser = Crypt.EncryptUser(ref user);
+                var res = SerializeObject(cryptedUser);
                 return res;
             }
             else

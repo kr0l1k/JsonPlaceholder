@@ -49,13 +49,32 @@ namespace JsonPlaceholder.Managers
             return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
         }
 
-        public static List<User> DecryptUsers(ref List<User> users)
+        public static List<User> EncryptUsers(ref List<User> users)
         {
             for (int i = 0; i < users.Count; i++)
             {
                 users[i].Email = Crypt.EncryptString(users[i].Email, users[i].Name + users[i].Phone.GetHashCode());
             }
             return users;
+        }
+        public static User EncryptUser(ref User user)
+        {
+            user.Email = Crypt.EncryptString(user.Email, user.Name + user.Phone.GetHashCode());
+            return user;
+        }
+
+        public static List<User> DecryptUsers(ref List<User> users)
+        {
+            for (int i = 0; i < users.Count; i++)
+            {
+                users[i].Email = Crypt.DecryptString(users[i].Email, users[i].Name + users[i].Phone.GetHashCode());
+            }
+            return users;
+        }
+        public static User DecryptUser(ref User user)
+        {
+            user.Email = Crypt.DecryptString(user.Email, user.Name + user.Phone.GetHashCode());
+            return user;
         }
     }
 }
