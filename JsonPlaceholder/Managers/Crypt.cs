@@ -49,6 +49,11 @@ namespace JsonPlaceholder.Managers
             return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
         }
 
+        /// <summary>
+        /// Encrypt Emails for Users collection
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
         public static List<User> EncryptUsers(ref List<User> users)
         {
             for (int i = 0; i < users.Count; i++)
@@ -57,12 +62,23 @@ namespace JsonPlaceholder.Managers
             }
             return users;
         }
+
+        /// <summary>
+        /// Encrypt user email
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static User EncryptUser(ref User user)
         {
             user.Email = Crypt.EncryptString(user.Email, user.Name + user.Phone.GetHashCode());
             return user;
         }
 
+        /// <summary>
+        /// Decrypt emails for Users collection
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
         public static List<User> DecryptUsers(ref List<User> users)
         {
             for (int i = 0; i < users.Count; i++)
@@ -71,6 +87,12 @@ namespace JsonPlaceholder.Managers
             }
             return users;
         }
+
+        /// <summary>
+        /// Decrypt user email
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static User DecryptUser(ref User user)
         {
             user.Email = Crypt.DecryptString(user.Email, user.Name + user.Phone.GetHashCode());

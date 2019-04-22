@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace JsonPlaceholder.Managers
 {
+    /// <summary>
+    /// Data getter from JsonPlaceHolder
+    /// </summary>
     public class Requester : IRequester
     {
         private const string URL_REQUEST = "http://jsonplaceholder.typicode.com/";
@@ -16,25 +19,10 @@ namespace JsonPlaceholder.Managers
         public Requester()
         {
         }
-        
-        public Album GetAlbum(int id)
-        {
-            string responseBody = string.Empty;
-            var request = String.Concat(URL_REQUEST, ALBUMS, "/", id);
-            responseBody = GetRequest(request).Result;
-            var res = JsonConvert.DeserializeObject<Album>(responseBody);
-            return res;
-        }
-
-        public List<Album> GetAlbums()
-        {
-            string responseBody = string.Empty;
-            var request = String.Concat(URL_REQUEST, ALBUMS);
-            responseBody = GetRequest(request).Result;
-            var res = JsonConvert.DeserializeObject<List<Album>>(responseBody);
-            return res;
-        }
-
+        /// <summary>
+        /// Get All users
+        /// </summary>
+        /// <returns></returns>
         public List<User> GetUser()
         {
             string responseBody = string.Empty;
@@ -43,7 +31,11 @@ namespace JsonPlaceholder.Managers
             var res = JsonConvert.DeserializeObject<List<User>>(responseBody);
             return res;
         }
-
+        /// <summary>
+        /// Get user by id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public User GetUser(int userId)
         {
             string responseBody = string.Empty;
@@ -53,6 +45,37 @@ namespace JsonPlaceholder.Managers
             return res;
         }
 
+        /// <summary>
+        /// Get all albums
+        /// </summary>
+        /// <returns></returns>
+        public List<Album> GetAlbums()
+        {
+            string responseBody = string.Empty;
+            var request = String.Concat(URL_REQUEST, ALBUMS);
+            responseBody = GetRequest(request).Result;
+            var res = JsonConvert.DeserializeObject<List<Album>>(responseBody);
+            return res;
+        }
+        /// <summary>
+        /// Get album by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Album GetAlbum(int id)
+        {
+            string responseBody = string.Empty;
+            var request = String.Concat(URL_REQUEST, ALBUMS, "/", id);
+            responseBody = GetRequest(request).Result;
+            var res = JsonConvert.DeserializeObject<Album>(responseBody);
+            return res;
+        }
+
+        /// <summary>
+        /// Get all albums of User
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public List<Album> GetUserAlbums(int userId)
         {
             string responseBody = string.Empty;
